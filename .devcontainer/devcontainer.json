@@ -1,0 +1,16 @@
+{
+  "name": "Spring Boot Dev Container",
+  "image": "mcr.microsoft.com/devcontainers/java:17",
+  "forwardPorts": [8080],
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "vscjava.vscode-java-pack",
+        "vscjava.vscode-spring-boot-dashboard",
+        "vmware.vscode-boot-dev-pack",
+        "redhat.vscode-xml"
+      ]
+    }
+  },
+  "remoteUser": "vscode"
+}
