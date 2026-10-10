@@ -1,0 +1,17 @@
+
+target/
+build/
+.gradle/
+
+
+.classpath
+.project
+.settings/
+.springBeans
+.sts4-cache/
+.idea/
+*.iml
+
+
+*.log
+.DS_Store
