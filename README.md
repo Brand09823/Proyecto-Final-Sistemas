@@ -4,7 +4,9 @@ Descripción general del Proyecto
 
 Este proyecto consiste en el desarrollo de una API REST utilizando Java y el framework Spring Boot para la materia de Implementación de Sistemas .El sistema permite gestionar el catálogo de animales, alimentos y nutrientes de una granja, resolviendo la problemática actual donde la información está dispersa y no hay un control real sobre lo que se consume. A través de esta API, se registran los animales con su respectiva especie, los alimentos disponibles y los nutrientes que aporta cada uno. Esto sienta las bases operativas para controlar la alimentación del ganado y, en una etapa posterior, analizar qué dieta da mejores resultados sobre la producción y beneficio que se obtiene de los animales.   La API expone operaciones de altas, bajas, cambios y consultas (CRUD) sobre 3 entidades clave del modelo relacional:Nutriente: Catálogo de los nutrientes que componen la alimentación.   Alimento: Registro de los alimentos o productos alimenticios disponibles en la granja.   Animal: Gestión de los animales, validando datos críticos como su edad y peso.
 
-Integrantes de Equipo
+
+
+## Integrantes de Equipo
 
 - Cruz Fuentes Vianidxi Ximena
 
@@ -15,7 +17,7 @@ Integrantes de Equipo
 
 Requerimientos
 
-## 3. Tabla de requerimientos (primeros 5 requerimientos a cubrir)
+## Tabla de requerimientos 
 
 | ID | Nombre del Requerimiento | Descripción del Sistema | Herramienta / Concepto |
 |----|--------------------------|-------------------------|------------------------|
