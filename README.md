@@ -44,14 +44,18 @@ Validación de Datos (Spring Boot Validation): Permite asegurar desde el backend
 
 Reducción de Código Boilerplate (Lombok): Automatiza la creación de constructores, getters y setters en las clases de Java, manteniendo el código limpio y facilitando la implementación de patrones de diseño como el Builder para estructurar los DTOs.
 
-## API de productos
+## API de la granja
 
-Se incluye un ejemplo de persistencia con Spring Data JPA basado en el laboratorio
-SpringJPA. La entidad `Producto` se expone en los siguientes endpoints:
+La API persiste sus entidades con Spring Data JPA y una base H2 en memoria. Los
+datos se pierden al detener la aplicación.
 
-- `GET /productos`: consulta todos los productos.
-- `POST /productos`: registra un producto y devuelve el registro creado.
+| Recurso | Endpoints |
+|---------|-----------|
+| Animales | `GET/POST /animales`, `GET/PUT/DELETE /animales/{id}` |
+| Alimentos | `GET/POST /alimentos`, `GET/PUT/DELETE /alimentos/{id}` |
+| Nutrientes | `GET/POST /nutrientes`, `GET/PUT/DELETE /nutrientes/{id}` |
 
-El cuerpo del POST acepta `nombre`, `descripcion`, `lote`, `precioUnitario` y
-`fechaCaducidad` (formato `AAAA-MM-DD`). Para facilitar la ejecución local, se
-usa una base H2 en memoria; los datos se pierden al detener la aplicación.
+Animal registra `especie`, `edad` y `peso`; edad y peso deben ser mayores que
+cero. Alimento registra `nombre`, `descripcion` y `nutrientes`, que contiene
+los IDs de los nutrientes asociados. Nutriente registra `nombre` y
+`descripcion`.

@@ -1,29 +1,39 @@
 package com.proyectofinal.sistemas.models;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
-@Table(name = "productos")
-public class Producto {
+@Table(name = "alimentos")
+public class Alimento {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank
     private String nombre;
-    private String descripcion;
-    private String lote;
-    private BigDecimal precioUnitario;
-    private LocalDate fechaCaducidad;
 
-    protected Producto() {
+    private String descripcion;
+
+    @ManyToMany
+    @JoinTable(
+            name = "alimento_nutriente",
+            joinColumns = @JoinColumn(name = "alimento_id"),
+            inverseJoinColumns = @JoinColumn(name = "nutriente_id"))
+    private Set<Nutriente> nutrientes = new LinkedHashSet<>();
+
+    public Alimento() {
     }
 
     public Long getId() {
@@ -46,27 +56,11 @@ public class Producto {
         this.descripcion = descripcion;
     }
 
-    public String getLote() {
-        return lote;
+    public Set<Nutriente> getNutrientes() {
+        return nutrientes;
     }
 
-    public void setLote(String lote) {
-        this.lote = lote;
-    }
-
-    public BigDecimal getPrecioUnitario() {
-        return precioUnitario;
-    }
-
-    public void setPrecioUnitario(BigDecimal precioUnitario) {
-        this.precioUnitario = precioUnitario;
-    }
-
-    public LocalDate getFechaCaducidad() {
-        return fechaCaducidad;
-    }
-
-    public void setFechaCaducidad(LocalDate fechaCaducidad) {
-        this.fechaCaducidad = fechaCaducidad;
+    public void setNutrientes(Set<Nutriente> nutrientes) {
+        this.nutrientes = nutrientes;
     }
 }
