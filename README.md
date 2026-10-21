@@ -16,6 +16,8 @@ entidad.
 ```text
 .devcontainer/
   devcontainer.json
+  Dockerfile
+  docker-compose.yml
 src/
   main/java/com/proyectofinal/sistemas/
     ProyectoFinalSistemasApplication.java
@@ -31,8 +33,16 @@ pom.xml
 
 ## Ejecutar
 
+En el Dev Container:
+
 ```bash
 mvn spring-boot:run
+```
+
+Con Docker Compose desde el host:
+
+```bash
+docker compose -f .devcontainer/docker-compose.yml up --build
 ```
 
 - `GET /` responde `Hello World`.
@@ -44,9 +54,14 @@ Spring Data JPA usa H2 en memoria; los datos se borran al detener la aplicación
 
 ## Probar
 
+Dentro del Dev Container o del contenedor `app`:
+
 ```bash
 mvn test
 ```
+
+Maven ejecuta las pruebas y genera los reportes Surefire en `target/surefire-reports/`.
+Estos archivos son resultados generados y no se versionan.
 
 El laboratorio se trabaja en la rama `feature/Animal`. La entidad, el
 repositorio y el controlador están limitados a los requisitos del ejercicio:
