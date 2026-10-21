@@ -12,6 +12,7 @@ import com.proyectofinal.sistemas.repositories.AnimalRepository;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -28,6 +29,13 @@ class AnimalControllerTest {
     @BeforeEach
     void cleanDatabase() {
         animalRepository.deleteAll();
+    }
+
+    @Test
+    void helloWorldEndpointIsAvailable() throws Exception {
+        mockMvc.perform(get("/"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("Hello World"));
     }
 
     @Test
