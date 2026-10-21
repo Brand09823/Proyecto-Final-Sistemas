@@ -43,3 +43,15 @@ Documentación Automática (Springdoc OpenAPI / Swagger): Genera una interfaz vi
 Validación de Datos (Spring Boot Validation): Permite asegurar desde el backend que se cumplan las reglas de negocio, validando mediante anotaciones que los Payloads (JSON de entrada) sean correctos antes de enviarlos a la base de datos.
 
 Reducción de Código Boilerplate (Lombok): Automatiza la creación de constructores, getters y setters en las clases de Java, manteniendo el código limpio y facilitando la implementación de patrones de diseño como el Builder para estructurar los DTOs.
+
+## API de productos
+
+Se incluye un ejemplo de persistencia con Spring Data JPA basado en el laboratorio
+SpringJPA. La entidad `Producto` se expone en los siguientes endpoints:
+
+- `GET /productos`: consulta todos los productos.
+- `POST /productos`: registra un producto y devuelve el registro creado.
+
+El cuerpo del POST acepta `nombre`, `descripcion`, `lote`, `precioUnitario` y
+`fechaCaducidad` (formato `AAAA-MM-DD`). Para facilitar la ejecución local, se
+usa una base H2 en memoria; los datos se pierden al detener la aplicación.
