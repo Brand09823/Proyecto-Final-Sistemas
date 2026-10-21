@@ -1,6 +1,10 @@
 {
-  "name": "Spring Boot Dev Container",
-  "image": "mcr.microsoft.com/devcontainers/java:17",
+  "name": "Spring Boot JPA",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "app",
+  "workspaceFolder": "/workspace",
+  "shutdownAction": "stopCompose",
+  "overrideCommand": false,
   "forwardPorts": [8080],
   "customizations": {
     "vscode": {
