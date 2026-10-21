@@ -46,16 +46,13 @@ Reducción de Código Boilerplate (Lombok): Automatiza la creación de construct
 
 ## API de la granja
 
-La API persiste sus entidades con Spring Data JPA y una base H2 en memoria. Los
-datos se pierden al detener la aplicación.
+## Laboratorio Spring JPA: Animal
 
-| Recurso | Endpoints |
-|---------|-----------|
-| Animales | `GET/POST /animales`, `GET/PUT/DELETE /animales/{id}` |
-| Alimentos | `GET/POST /alimentos`, `GET/PUT/DELETE /alimentos/{id}` |
-| Nutrientes | `GET/POST /nutrientes`, `GET/PUT/DELETE /nutrientes/{id}` |
+Para el laboratorio se eligió `Animal` como la única entidad JPA en la carpeta
+`models`. Spring Data JPA la persiste en una base H2 en memoria; los datos se
+pierden al detener la aplicación. El controlador expone:
 
-Animal registra `especie`, `edad` y `peso`; edad y peso deben ser mayores que
-cero. Alimento registra `nombre`, `descripcion` y `nutrientes`, que contiene
-los IDs de los nutrientes asociados. Nutriente registra `nombre` y
-`descripcion`.
+- `GET /animales`: consulta todos los animales.
+- `POST /animales`: registra un animal. El cuerpo acepta `especie`, `edad` y
+  `peso`; especie no puede estar vacía, y edad y peso deben ser mayores que
+  cero.
