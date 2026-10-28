@@ -6,4 +6,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface EspecieRepository extends JpaRepository<Especie, Integer> {
+<<<<<<< HEAD
 } 
+=======
+}
+>>>>>>> 0833fb0 (Se agregan catalogos de Alimento y Especie con servicios y controladores)
