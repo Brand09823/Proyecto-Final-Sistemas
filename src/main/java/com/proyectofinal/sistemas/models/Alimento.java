@@ -25,4 +25,4 @@ public class Alimento {
 
     public String getNombreAlimento() { return nombreAlimento; }
     public void setNombreAlimento(String nombreAlimento) { this.nombreAlimento = nombreAlimento; }
-}
+} // 
