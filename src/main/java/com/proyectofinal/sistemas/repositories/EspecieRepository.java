@@ -6,4 +6,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface EspecieRepository extends JpaRepository<Especie, Integer> {
-}
+} 
