@@ -53,18 +53,21 @@ dependencias y funcionalidades del ecosistema Spring Boot:
 ## Laboratorio Spring JPA: Animal
 
 Como práctica del laboratorio Spring JPA, se eligió `Animal` para adaptar el
-ejemplo al dominio de la granja. El laboratorio contiene una sola clase en
+ejemplo al dominio de la granja. El laboratorio contiene una entidad en
 `models`, un repositorio que extiende `JpaRepository` y un controlador con
-operaciones GET y POST.
+operaciones CRUD.
 
 La entidad registra `especie`, `edad` y `peso`. La especie no puede estar vacía
 y la edad y el peso deben ser mayores que cero. Spring Data JPA persiste los
 datos en H2 en memoria, por lo que se pierden al detener la aplicación.
 
-Endpoints implementados:
+Endpoints implementados para animales:
 
 - `GET /animales`: consulta todos los animales.
-- `POST /animales`: registra un animal.
+- `GET /animales/{id}`: consulta un animal; responde 404 si no existe.
+- `POST /animales`: registra un animal y responde 201 Created.
+- `PUT /animales/{id}`: actualiza los datos de un animal; responde 404 si no existe.
+- `DELETE /animales/{id}`: elimina un animal y responde 204 No Content; responde 404 si no existe.
 - `GET /`: endpoint inicial que responde `Hello World`.
 
 ## Entorno de desarrollo

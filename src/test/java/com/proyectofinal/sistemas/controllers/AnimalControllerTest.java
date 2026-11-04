@@ -10,8 +10,10 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.proyectofinal.sistemas.repositories.AnimalRepository;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -71,5 +73,54 @@ class AnimalControllerTest {
                                 {"especie":"Bovino","edad":3,"peso":0}
                                 """))
                 .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void getByIdUpdateAndDeleteAnimal() throws Exception {
+        mockMvc.perform(post("/animales")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {"especie":"Bovino","edad":3,"peso":450.5}
+                                """))
+                .andExpect(status().isCreated());
+
+        Long id = animalRepository.findAll().get(0).getId();
+
+        mockMvc.perform(get("/animales/{id}", id))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.especie").value("Bovino"));
+
+        mockMvc.perform(put("/animales/{id}", id)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {"especie":"Caprino","edad":4,"peso":52.5}
+                                """))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(id))
+                .andExpect(jsonPath("$.especie").value("Caprino"))
+                .andExpect(jsonPath("$.edad").value(4))
+                .andExpect(jsonPath("$.peso").value(52.5));
+
+        mockMvc.perform(delete("/animales/{id}", id))
+                .andExpect(status().isNoContent());
+
+        mockMvc.perform(get("/animales/{id}", id))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    void getUpdateAndDeleteReturnNotFoundForUnknownAnimal() throws Exception {
+        mockMvc.perform(get("/animales/{id}", 999L))
+                .andExpect(status().isNotFound());
+
+        mockMvc.perform(put("/animales/{id}", 999L)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {"especie":"Caprino","edad":4,"peso":52.5}
+                                """))
+                .andExpect(status().isNotFound());
+
+        mockMvc.perform(delete("/animales/{id}", 999L))
+                .andExpect(status().isNotFound());
     }
 }
