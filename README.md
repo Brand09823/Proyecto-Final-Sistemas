@@ -92,3 +92,26 @@ mvn test
 ## Rama del laboratorio
 
 El cambio del laboratorio se trabaja en la rama `feature/Animal`.
+
+### Diagrama Entidad-Relación del Proyecto
+
+```mermaid
+erDiagram
+    tEspecie {
+        int idEspecie PK
+        string nombre
+    }
+
+    animales {
+        Long id PK
+        int edad
+        decimal peso
+        int idEspecie FK
+    }
+
+    tAlimento {
+        int idAlimento PK
+        string nombreAlimento
+    }
+
+    tEspecie ||--o{ animales : "tiene" 
