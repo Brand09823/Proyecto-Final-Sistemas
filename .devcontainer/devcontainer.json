@@ -4,7 +4,7 @@
   "service": "app",
   "workspaceFolder": "/workspace",
   "shutdownAction": "stopCompose",
-  "overrideCommand": false,
+  "overrideCommand": true,
   "forwardPorts": [8080],
   "customizations": {
     "vscode": {
