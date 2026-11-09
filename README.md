@@ -1,8 +1,6 @@
 
 # Proyecto-Final-Sistemas-
 
-# Proyecto-Final-Sistemas-
-
 ## Descripción general del proyecto
 
 Este proyecto consiste en el desarrollo de una API REST utilizando Java y el
@@ -117,3 +115,10 @@ erDiagram
         string nombreAlimento
     }
 
+    tNutriente {
+        int idNutriente PK
+    }
+
+    tEspecie ||--o{ animales : "tiene"
+    tAlimento }o--o{ tNutriente : "contiene"
+```
