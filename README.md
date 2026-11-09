@@ -1,6 +1,6 @@
-<<<<<<< HEAD
+
 # Proyecto-Final-Sistemas-
-=======
+
 # Proyecto-Final-Sistemas-
 
 ## Descripción general del proyecto
@@ -117,5 +117,3 @@ erDiagram
         string nombreAlimento
     }
 
-    tEspecie ||--o{ animales : "tiene" 
->>>>>>> c5aca33 (Agregando diagrama Mermaid final en el README)
