@@ -1,5 +1,7 @@
 package com.proyectofinal.sistemas.models;
 
+//JPA
+
 import java.math.BigDecimal;
 
 import jakarta.persistence.Entity;
@@ -10,6 +12,11 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
@@ -20,8 +27,11 @@ public class Animal {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
-    private String especie;
+    //Relacion Muchos a Uno (N:1): Cada animal pertenece a una Especie
+    @NotNull 
+    @ManyToOne 
+    @JoinColumn(name = "idEspecie", nullable = false)
+    private Especie especie;
 
     @NotNull
     @Min(1)
