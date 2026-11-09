@@ -1,3 +1,9 @@
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+# Proyecto-Final-Sistemas-
+=======
+>>>>>>> f318744a6b65a78364f858c4307e3babd3937db5
 # Proyecto-Final-Sistemas-
 
 ## Descripción general del proyecto
@@ -114,4 +120,9 @@ erDiagram
         string nombreAlimento
     }
 
+<<<<<<< HEAD
     tEspecie ||--o{ animales : "tiene" 
+=======
+    tEspecie ||--o{ animales : "tiene" 
+>>>>>>> c5aca33 (Agregando diagrama Mermaid final en el README)
+>>>>>>> f318744a6b65a78364f858c4307e3babd3937db5
