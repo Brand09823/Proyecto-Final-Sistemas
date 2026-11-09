@@ -1,5 +1,7 @@
 package com.proyectofinal.sistemas.models;
 
+//JPA
+
 import java.math.BigDecimal;
 
 import jakarta.persistence.Entity;
