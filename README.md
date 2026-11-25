@@ -1,5 +1,4 @@
 
-
 # Proyecto-Final-Sistemas-
 
 ## Descripción general del proyecto
@@ -116,5 +115,10 @@ erDiagram
         string nombreAlimento
     }
 
-    tEspecie ||--o{ animales : "tiene" 
-    tEspecie ||--o{ animales : "tiene" 
+    tNutriente {
+        int idNutriente PK
+    }
+
+    tEspecie ||--o{ animales : "tiene"
+    tAlimento }o--o{ tNutriente : "contiene"
+```
