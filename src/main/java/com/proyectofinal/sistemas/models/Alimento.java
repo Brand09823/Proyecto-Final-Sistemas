@@ -1,11 +1,8 @@
 package com.proyectofinal.sistemas.models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "tAlimento")
@@ -18,6 +15,14 @@ public class Alimento {
 
     @Column(name = "nombreAlimento", nullable = false, unique = true, length = 50)
     private String nombreAlimento;
+
+    @ManyToMany
+    @JoinTable(
+            name = "tAlimentoNutriente",
+            joinColumns = @JoinColumn(name = "idAlimento"),
+            inverseJoinColumns = @JoinColumn(name = "idNutriente")
+    )
+    private List<Nutriente> nutrientes = new ArrayList<>();
 
     public Alimento() {
     }
@@ -40,5 +45,13 @@ public class Alimento {
 
     public void setNombreAlimento(String nombreAlimento) {
         this.nombreAlimento = nombreAlimento;
+    }
+
+    public List<Nutriente> getNutrientes() {
+        return nutrientes;
+    }
+
+    public void setNutrientes(List<Nutriente> nutrientes) {
+        this.nutrientes = nutrientes;
     }
 }

@@ -1,11 +1,8 @@
 package com.proyectofinal.sistemas.models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "tEspecie")
@@ -18,6 +15,9 @@ public class Especie {
 
     @Column(name = "nombre", nullable = false, unique = true, length = 50)
     private String nombre;
+
+    @OneToMany(mappedBy = "especie")
+    private List<Animal> animales = new ArrayList<>();
 
     public Especie() {
     }
@@ -40,5 +40,13 @@ public class Especie {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public List<Animal> getAnimales() {
+        return animales;
+    }
+
+    public void setAnimales(List<Animal> animales) {
+        this.animales = animales;
     }
 }

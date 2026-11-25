@@ -1,29 +1,68 @@
 package com.proyectofinal.sistemas.services;
 
+import com.proyectofinal.sistemas.dto.EspecieRequest;
+import com.proyectofinal.sistemas.dto.EspecieResponse;
 import com.proyectofinal.sistemas.models.Especie;
+import com.proyectofinal.sistemas.repositories.AnimalRepository;
 import com.proyectofinal.sistemas.repositories.EspecieRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-import java.util.Optional;
+
 
 @Service
 public class EspecieService {
 
-    @Autowired
-    private EspecieRepository especieRepository;
+   private final EspecieRepository especieRepository;
+   private final AnimalRepository animalRepository;
 
-    public List<Especie> listarTodas() { return especieRepository.findAll(); }
-    public Optional<Especie> buscarPorId(Integer id) { return especieRepository.findById(id); }
-    public Especie guardar(Especie especie) { return especieRepository.save(especie); }
-    
-    public Especie actualizar(Integer id, Especie detalles) {
-        Especie especie = especieRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Especie no encontrada"));
-        especie.setNombre(detalles.getNombre());
-        return especieRepository.save(especie);
+   public EspecieService(EspecieRepository especieRepository, AnimalRepository animalRepository) {
+    this.especieRepository = especieRepository;
+    this.animalRepository = animalRepository;
+   }
+
+
+   @Transactional(readOnly = true)
+   public List<EspecieResponse> listarTodas() {
+    return especieRepository.findAll().stream().map(this::toResponse).toList();
+   }
+
+
+   @Transactional(readOnly = true)
+   public EspecieResponse buscarPorId(Integer id) {
+    return especieRepository.findById(id)
+           .map(this::toResponse)
+           .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Especie no encontrada"));
+   }
+
+   @Transactional
+   public EspecieResponse crear(EspecieRequest request) {
+    return toResponse(especieRepository.save(new Especie(request.nombre().trim())));
+   }
+
+   @Transactional
+   public EspecieResponse actualizar (Integer id, EspecieRequest request) {
+    Especie especie = especieRepository.findById(id)
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Especie no encontrada"));
+    especie.setNombre(request.nombre().trim());
+    return toResponse(especieRepository.save(especie));
+   }
+
+   @Transactional
+   public void eliminar(Integer id) {
+    if (!especieRepository.existsById(id)) {
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Especie no encontrada");
     }
+    if (animalRepository.existsByEspecie_IdEspecie(id)) {
+        throw new ResponseStatusException(HttpStatus.CONFLICT, "No se eliminar una especie con animales asociados");
+    }
+    especieRepository.deleteById(id);
+   }
 
-    public void eliminar(Integer id) { especieRepository.deleteById(id); }
+   private EspecieResponse toResponse(Especie especie) {
+    return new EspecieResponse(especie.getIdEspecie(), especie.getNombre());
+   }
 }

@@ -4,7 +4,8 @@
   "service": "app",
   "workspaceFolder": "/workspace",
   "shutdownAction": "stopCompose",
-  "overrideCommand": false,
+  "overrideCommand": true,
+  "postStartCommand": "sh -c 'nohup mvn spring-boot:run > /tmp/spring-boot.log 2>&1 &'",
   "forwardPorts": [8080],
   "customizations": {
     "vscode": {

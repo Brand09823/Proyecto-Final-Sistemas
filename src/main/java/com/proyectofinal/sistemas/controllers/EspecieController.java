@@ -1,45 +1,52 @@
 package com.proyectofinal.sistemas.controllers;
 
-import com.proyectofinal.sistemas.models.Especie;
+import com.proyectofinal.sistemas.dto.EspecieRequest;
+import com.proyectofinal.sistemas.dto.EspecieResponse;
 import com.proyectofinal.sistemas.services.EspecieService;
-import org.springframework.beans.factory.annotation.Autowired;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
-
 
 @RestController
 @RequestMapping("/api/especies")
 public class EspecieController {
 
-    @Autowired
-    private EspecieService especieService;
+    private final EspecieService especieService;
+
+    public EspecieController(EspecieService especieService) {
+        this.especieService = especieService;
+    }
 
     @GetMapping
-    public List<Especie> obtenerTodas() { 
-        return especieService.listarTodas(); 
+    public List<EspecieResponse> listarTodas() {
+        return especieService.listarTodas();
     }
 
     @GetMapping("/{id}")
-    public Optional<Especie> obtenerPorId(@PathVariable Integer id) {
+    public EspecieResponse buscarPorId(@PathVariable Integer id) {
         return especieService.buscarPorId(id);
     }
 
     @PostMapping
-    public Especie crearEspecie(@RequestBody Especie especie) {
-        return especieService.guardar(especie);
+    @SecurityRequirement(name = "bearerAuth")
+    public ResponseEntity<EspecieResponse> crear(@Valid @RequestBody EspecieRequest request) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(especieService.crear(request));
     }
 
     @PutMapping("/{id}")
-    public Especie actualizarEspecie(@PathVariable Integer id, @RequestBody Especie detalles) {
-        return especieService.actualizar(id, detalles);
+    @SecurityRequirement(name = "bearerAuth")
+    public EspecieResponse actualizar(@PathVariable Integer id, @Valid @RequestBody EspecieRequest request) {
+        return especieService.actualizar(id, request);
     }
-
 
     @DeleteMapping("/{id}")
-    public void eliminarEspecie(@PathVariable Integer id) {
+    @SecurityRequirement(name = "bearerAuth")
+    public ResponseEntity<Void> eliminar(@PathVariable Integer id) {
         especieService.eliminar(id);
+        return ResponseEntity.noContent().build();
     }
-
 }

@@ -1,5 +1,6 @@
 package com.proyectofinal.sistemas.models;
 
+import jakarta.persistence.*;
 import java.math.BigDecimal;
 
 import jakarta.persistence.Entity;
@@ -20,29 +21,38 @@ public class Animal {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
-    private String especie;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "idEspecie", nullable = false)
+    private Especie especie;
 
-    @NotNull
-    @Min(1)
+    @Column(nullable = false)
     private Integer edad;
 
-    @NotNull
-    @DecimalMin(value = "0.0", inclusive = false)
+    @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal peso;
 
-    protected Animal() {
+    public Animal() {
+    }
+
+    public Animal(Especie especie, Integer edad, BigDecimal peso) {
+        this.especie = especie;
+        this.edad = edad;
+        this.peso = peso;
     }
 
     public Long getId() {
         return id;
     }
 
-    public String getEspecie() {
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Especie getEspecie() {
         return especie;
     }
 
-    public void setEspecie(String especie) {
+    public void setEspecie(Especie especie) {
         this.especie = especie;
     }
 
