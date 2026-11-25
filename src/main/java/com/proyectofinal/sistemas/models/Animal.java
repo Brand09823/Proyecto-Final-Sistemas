@@ -1,21 +1,7 @@
 package com.proyectofinal.sistemas.models;
 
+import jakarta.persistence.*;
 import java.math.BigDecimal;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
-import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "animales")
@@ -25,32 +11,38 @@ public class Animal {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //Relacion Muchos a Uno (N:1): Cada animal pertenece a una Especie
-    @NotNull 
-    @ManyToOne 
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "idEspecie", nullable = false)
     private Especie especie;
 
-    @NotNull
-    @Min(1)
+    @Column(nullable = false)
     private Integer edad;
 
-    @NotNull
-    @DecimalMin(value = "0.0", inclusive = false)
+    @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal peso;
 
-    protected Animal() {
+    public Animal() {
+    }
+
+    public Animal(Especie especie, Integer edad, BigDecimal peso) {
+        this.especie = especie;
+        this.edad = edad;
+        this.peso = peso;
     }
 
     public Long getId() {
         return id;
     }
 
-    public String getEspecie() {
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Especie getEspecie() {
         return especie;
     }
 
-    public void setEspecie(String especie) {
+    public void setEspecie(Especie especie) {
         this.especie = especie;
     }
 
