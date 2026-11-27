@@ -253,3 +253,30 @@ erDiagram
     tAlimento ||--o{ tAlimentoNutriente : contiene
     tNutriente ||--o{ tAlimentoNutriente : aporta
 ```
+
+## Página web (frontend)
+
+La interfaz web está en el repositorio
+[iumoni/proyecto-final-frontend](https://github.com/iumoni/proyecto-final-frontend)
+y publicada en <https://iumoni.github.io/proyecto-final-frontend/>.
+
+- Consume esta API con `fetch` e incluye CRUD completo de Animales, Especies,
+  Corrales, Alimentos (con sus nutrientes) y Nutrientes.
+- Inicia sesión con `POST /api/auth/login` y envía el JWT en las operaciones
+  de escritura.
+- El backend habilita **CORS** para `https://iumoni.github.io`, `localhost`
+  (cualquier puerto) y Codespaces (`*.app.github.dev`). Se puede cambiar con la
+  variable de entorno `APP_CORS_ALLOWED_ORIGINS` (orígenes separados por coma).
+- Para usarla: ejecuta `mvn spring-boot:run` y abre la página en la misma
+  computadora. Si Chrome pregunta si el sitio puede acceder a la red local,
+  elige **Permitir**.
+
+## Registro de eventos (logs)
+
+- **Peticiones:** `RequestLoggingFilter` (SLF4J) registra cada petición con su
+  método, ruta, código de respuesta y tiempo. Las respuestas 4xx aparecen como
+  `WARN` y las 5xx como `ERROR`.
+- **Consultas SQL:** se muestran en consola con `spring.jpa.show-sql=true`.
+- **Errores:** las respuestas de error incluyen el mensaje
+  (`spring.web.error.include-message=always`), por ejemplo
+  *"No se puede eliminar una especie con animales asociados"*.
